@@ -37,7 +37,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: dubbo2istio
-    namespace: dubbo
+    namespace: testhl
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -52,6 +52,8 @@ spec:
   replicas: 1
   template:
     metadata:
+      annotations:
+        sidecar.istio.io/inject: "false"
       labels:
         app: dubbo2istio
     spec:
@@ -61,4 +63,4 @@ spec:
           image: aeraki/dubbo2istio
           env:
             - name: ZK_ADDR
-              value: "zookeeper.dubbo.svc.cluster.local:2181"
+              value: "zookeeper.testhl.svc.cluster.local:2181"
